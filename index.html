@@ -1,6 +1,159 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <h1>Hello 4641</h1>
-    </body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css" />
+    <title>CS 4641, Spring 2021</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="site-header pt-3 pb-3 mb-2" id="top">
+        <nav class="navbar navbar-expand-lg navbar-light section">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#top">CS4641, Sp2021</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <a class="nav-link" href="#top">Project Proposal</a>
+            </div>
+          </div>
+        </nav>
+        <div class="py-5 section">
+          <h1 class="display-4 fw-bold text-light">HAM10000</h1>
+          <p class="lead fs-3 text-light">Creating classification algorithms to recognize skin cancer</p>
+          <p class="fs-6 fst-italic text-light">Emine Zeynep Ulutas, Manognya Sripathi, Nikhil Damani, Varun Kulkarni, Ishuma Lahoti</p>
+        </div>
+      </div>
+      
+      <br><br>
+      <div class="section">
+        <iframe width="840" height="472" src="https://www.youtube.com/embed/irKvId2gFVs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <br><br>
+      <div class="section">
+        <div class="section-header-text fs-3 fw-bold">Introduction/Background</div>
+        <p class="fs-5 lh-lg">Cancer is an ongoing health issue in our society without a significantly effective cure. It is well known that early detection of cancer may provide the patient with the best chance of beating it. Given that there are different types of cancers, each with their own symptoms, it can be difficult to detect some over others. Skin cancer is one that can be visually recognized. There are multiple different causes of skin cancer with different appearances (Actinic keratoses, basal cell carcinoma, melanoma, etc.).</p>
+      </div>
+      <div class="sep-3rem"></div>
+      <div class="section">
+        <div class="section-header-text fs-3 fw-bold">Problem Definition</div>
+        <p class="fs-5 lh-lg">In order to accurately diagnose a patient, we must take into account numerous causes of skin cancer; however, this can prove difficult as some causes can look similar at times. It may be beneficial to utilize machine learning to classify different types of skin cancers. This can help aid doctors to more accurately diagnose skin cancer by either confirming their diagnosis or suggesting a re-diagnosis. Having a second opinion from a machine learning model can help eradicate many false positives and negatives. This can ensure that patients get the most effective treatment for their type of skin cancer.</p>
+      </div>
+      <div class="sep-3rem"></div>
+      <div class="section">
+        <div class="section-header-text fs-3 fw-bold">Proposed Methods</div>
+        <p class="fs-5 lh-lg">We plan on using the HAM10000 dataset from <a href="https://www.kaggle.com/kmader/skin-cancer-mnist-ham10000" class="link-primary fw-bold">Kaggle</a>, a collection of about 10k images arranged in CSV files where each column is a sequential pixel.  After choosing an image size, converting the data into a python dataframe, and splitting the data into a train and test set, we plan on creating two classification models. The first is a Convolutional Neural Network (CNN), which is used frequently with this dataset as seen in projects by Goyal and Rezvantalab.  Since we are new to deep learning and the images are not very big, we plan on making a basic architecture with a small convolution (likely 3x3 to begin with) and a limited number of hidden layers. As we research more about CNNs, their activation functions, pooling layers, etc, we hope to improve our architecture to balance speed and accuracy better. We also want to explore Support Vector Machines (SVMs) for classification but since they are more binary-based classifiers, we plan to train them to recognize one specific type of disease category and say whether an image depicts that specific disease or not.</p>
+        <figure class="figure">
+          <img class="img-fluid img-30 mx-auto d-block" alt="HAM10000 data examples" src="https://storage.googleapis.com/kaggle-datasets-images/54339/103727/d0f9325d9f7d113719887bc22235e5d4/dataset-card.png?t=2018-09-19-17-09-26" />
+          <figcaption class="figure-caption">Source: Kaggle.com</figcaption>
+        </figure>
+      </div>
+      <div class="sep-3rem"></div>
+      <div class="section">
+        <div class="section-header-text fs-3 fw-bold">Potential Results</div>
+        <p class="fs-5 lh-lg">Since our dataset has 7 different types of skin cancer images, the goal of the model will be to display results as numbers 0-6, corresponding to the type of cancer the image is diagnosed as. We expect to analyze the results using methods such as accuracy and recall to test how closely our model was able to predict the type of cancer. Since there are features such as location of lesions and age included in the dataset, we hope to find out the features that impact the results the most, which would provide healthcare workers with a list of traits that make someone more susceptible to developing skin cancer. This would ideally help them warn those who are at more risk for a particular type of skin cancer based on their medical history or other factors. </p>
+      </div> 
+      <div class="sep-3rem"></div>
+      <!-- https://youtu.be/irKvId2gFVs -->
+      <div class="section">
+        <div class="section-header-text fs-3 fw-bold">Proposed Timeline</div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-3">
+            <div class="timeline-bold fs-5">October 12</div>
+          </div>
+          <div class="col">
+            <p class="fs-5">Convert HAM10000 dataset into python dataframe for processing</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-3">
+            <div class="timeline-bold fs-5">October 19</div>
+          </div>
+          <div class="col">
+            <p class="fs-5">Finish test/train split</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-3">
+            <div class="timeline-bold fs-5">November 2</div>
+          </div>
+          <div class="col">
+            <p class="fs-5">Formal checkpoint - CNN Classification Model</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-3">
+            <div class="timeline-bold fs-5">November 16</div>
+          </div>
+          <div class="col">
+            <p class="fs-5">Project Midterm Report</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-sm-3">
+            <div class="timeline-bold fs-5">November 30</div>
+          </div>
+          <div class="col">
+            <p class="fs-5">Both classification models complete/Programming work effectively finished</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-sm-3">
+            <div class="timeline-bold fs-5">December 7</div>
+          </div>
+          <div class="col">
+            <p class="fs-5">Project Final Report Due</p>
+          </div>
+        </div>
+      </div> 
+      <div class="sep-3rem"></div>
+
+      <div class="section">
+        <div class="section-header-text fs-3 fw-bold">Responsibilities</div>
+        <ul>
+          <li class="fs-5"><span class="fw-bold">Manognya:</span> Preprocessing & Parameter Fine-Tuning</li>
+          <li class="fs-5"><span class="fw-bold">Nikhil:</span> Model training</li>
+          <li class="fs-5"><span class="fw-bold">Varun:</span> CNN Architecture/Training</li>
+          <li class="fs-5"><span class="fw-bold">Zeynep:</span> Data Postprocessing</li>
+          <li class="fs-5"><span class="fw-bold">Ishuma:</span> Data Analysis</li>
+        </ul>
+      </div> 
+      <div class="sep-3rem"></div>
+
+      <div class="section">
+        <div class="section-header-text fs-5 fw-bold">References</div>
+        <p class="fs-6 ">
+          Goyal, M., Hassanpour, S., & Yap, M. H. (n.d.). Region of Interest Detection in Dermoscopic Images for Natural Data-augmentation. ArXiv. https://doi.org/https://arxiv.org/pdf/1807.10711.pdf 
+        </p>
+        <p class="fs-6">
+          Rezvantalab, A., Safigholi, H., & Karimijeshni, S. (n.d.). Dermatologist Level Dermoscopy Skin Cancer Classification Using Different Deep Learning Convolutional Neural Networks Algorithms . ArXiv. https://doi.org/https://arxiv.org/pdf/1810.10348.pdf 
+        </p>
+        <p class="fs-6">
+          Esteva, A., Kuprel, B., Novoa, R. A., Ko, J., Swetter, S. M., Blau, H. M., & Thrun, S. (2017). Dermatologist-level classification of skin cancer with Deep Neural Networks. Nature, 542(7639), 115–118. https://doi.org/10.1038/nature21056 
+
+        </p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+
+   
+  </body>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top container">
+    <div class="col-md-4 mb-0 text-muted main-color">Page Created + Maintained by <a href="https://github.com/Varun-Kulkarni">@Varun-Kulkarni</a></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+  </footer>
 </html>
