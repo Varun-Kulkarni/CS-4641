@@ -4,3 +4,4 @@ https://www.kaggle.com/kmader/skin-cancer-mnist-ham10000
 
 Please download the following files from the Kaggle server into this directory 
 hmnist_8_8_L.csv
+HAM10000_metadata.csv
