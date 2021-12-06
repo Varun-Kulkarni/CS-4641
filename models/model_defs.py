@@ -1,7 +1,7 @@
 ##Use this file to generate your models and have them stored in a single class so you can just load them into the playground
-from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, BatchNormalization, Flatten, Dropout, Dense
-from tensorflow.keras import Sequential
-
+from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, BatchNormalization, Flatten, Dropout, Dense, GlobalMaxPooling2D
+from tensorflow.keras import Sequential, Model
+from tensorflow.keras.applications.vgg16 import VGG16
 
 '''
     Initial 2-stage convolution followed by some dense layers and a softmax
@@ -34,3 +34,12 @@ def basic_conv_2_stage(convolution_window, **kwargs):
     ]
 
     return Sequential(layers)
+
+def modded_VGG():
+    vgg_model = VGG16(weights='imagenet')
+    vgg_output_layer = vgg_model.output
+    
+
+    # o = Dense(7, activation='softmax')(g)
+    # return Model(vgg_output_layer, o)
+    
