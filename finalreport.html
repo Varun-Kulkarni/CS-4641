@@ -28,7 +28,7 @@
           </nav>
           <div class="py-5 section">
             <h1 class="display-4 fw-bold text-light">HAM10000</h1>
-            <p class="lead fs-3 text-light">Midterm Report</p>
+            <p class="lead fs-3 text-light">Final Report</p>
           </div>
         </div>
         <br><br>
@@ -57,6 +57,10 @@
             <p class="fs-5 lh-lg"><span class="secondary-header fs-4">More Complicated CNN &nbsp;</span> We used a Keras Sequential model, where each layer was added from input. We chose Conv2D, which transforms a part of an image using a kernel filter based on the given kernel size. The MaxPool2D layer acts as a downsampling filter, where it just picks maximum values within neighbors in order to minimize computational burden. Then, a dropout layer was added where some nodes are ignored (with weight of 0), making the learning process more efficient. Multiple of these were implemented in order to get a big picture of the dataset and extract several features. ReLu was used to add nonlinearity to the dataset. A flatten layer was used to make everything into 1D. The full architecture was as follows : <span class="code">In -> [[Conv2D->relu]*2 -> MaxPool2D -> Dropout]*3 -> Flatten -> Dense*2 -> Dropout -> Out</span>. This particular architecture was used since it was commonly used for datasets that contained skin samples, so we used this as a starting point. The weight for melanoma was higher than others since we want the model to be more sensitive towards cancer. We used a learning rate of 0.00075 and ran it over 60 epochs with a batch size of 16 for training. 
             </p>
 
+            <p class="fs-5 lh-lg"><span class="secondary-header fs-4">State of the Art Model Attempts &nbsp;</span> During the last part of our project, we also tried to train HAM10000 using a few state of the art models.  We started this work by choosing VGG16 and resizing the images to 224x224 pixels and adding a Dense, Dropout, and a final Dense layer for our predictions.</p>
+            <p class="fs-5 lh-lg">We then compared VGG to other models and tried to select other models to experiment with.  We used the following graphic from <a href="https://culurciello.medium.com/analysis-of-deep-neural-networks-dcf398e71aae">Eugenio Culurciello</a>'s blog post to look at other models. For each mode we ended up testing (VGG, MobilenetV2, and ResNet-50), we used the weights from Imagenet dataset since 
+            they are generally accepted as a baseline for most classification tasks.  We used a Dropout of 0.2 before the final predictions of 7 classes to reduce some of the weights used and reduce the chance of overfitting. We kept the other hyperparameters the same since we wanted to use the performance of the baseline for each of these models as a basis of comparison to our models</p>
+            <img src="https://miro.medium.com/max/4800/1*kfpO_fJ4bc92sffY4bxnSA.jpeg" class="img-center" style="width: 50%;" />
             <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Random Forest &nbsp;</span> We decided to also look into using a random forest approach to classify the different types of skin cancer. In order to do this, we utilized the tfdf library from tensorflow_decision_forests. Additionally, we used Pandas to represent and manipulate the dataset. The program reads in the .csv representation of the dataset provided on Kaggle which includes the <span class="code">lesion_id, image_id, dx, dx_type, age, sex, and localization</span>. The <span class="code">image_id</span> is the name of the corresponding image (which is provided in the dataset). <span class="code">Dx_type, age, sex, and localization</span> are all attributes along which splits occur in the random forest. <span class="code">Dx</span> is the label corresponding to the type of skin cancer present in the image. We use a 70/30 % train/validation split. Next, we convert the labels to integers. Finally, we train the model and check the accuracy and loss graphs.
             </p>           
         </div>
@@ -99,6 +103,11 @@
                 <img class="img-center" style="width: 50%;" src="images/cnn_label_class.png" />
             
             <p class="fs-5 lh-lg">We can see that Class 3 was almost always classified incorrectly, so our next steps will also include trying to figure out why this is happening and see if we can change weights to account for this. </p>
+
+
+            <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Using State of the Art Models: &nbsp;</span> As mentioned earlier, we used VGG16 and extra dense/drop layers to make our final predictions. We also tested on ResNet-50 and MobileNet, but we ran into memory issues on the Colab GPUs when we tested HAM10000 on any of these networks. Even MobileNet, with only about 3M parameters, tended to exceed the memory during training due to the fact that we trained on 100000 images plus a generator.  We attempted to alleviate the memory load by using the <span class="code">del</span> capability from python, but by the time we got to the training step the memory pressure still caused our models to time out</p> 
+            <p class="fs-5 lh-lg">In the future, if we have access to more reliable hardware that has considerably more memory, it's likely that we'd see high-accuracy results from these network architectures.  However, we were limited by time and resources and couldn't pursue this front much further</p>
+
 
             <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Random Forest: &nbsp;</span> Below are the graphs that show the accuracy and loss of the random forest on the validation data. </p>
             
