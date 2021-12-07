@@ -21,8 +21,8 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <a class="nav-link" href="index.html">Project Proposal</a>
-                <a class="nav-link" href="#top">Midterm Report</a>
-                <a class="nav-link" href="finalreport.html">Final Report</a>
+                <a class="nav-link" href="midtermreport.html">Midterm Report</a>
+                <a class="nav-link" href="#">Final Report</a>
               </div>
             </div>
           </nav>
@@ -63,7 +63,7 @@
             <p class="fs-5 lh-lg">We then compared VGG to other models and tried to select other models to experiment with.  We used the following graphic from <a href="https://culurciello.medium.com/analysis-of-deep-neural-networks-dcf398e71aae">Eugenio Culurciello</a>'s blog post to look at other models. For each mode we ended up testing (VGG, MobilenetV2, and ResNet-50), we used the weights from Imagenet dataset since 
             they are generally accepted as a baseline for most classification tasks.  We used a Dropout of 0.2 before the final predictions of 7 classes to reduce some of the weights used and reduce the chance of overfitting. We kept the other hyperparameters the same since we wanted to use the performance of the baseline for each of these models as a basis of comparison to our models</p>
             <img src="https://miro.medium.com/max/4800/1*kfpO_fJ4bc92sffY4bxnSA.jpeg" class="img-center" style="width: 50%;" />
-            <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Random Forest &nbsp;</span> We decided to also look into using a random forest approach to classify the different types of skin cancer. In order to do this, we utilized the tfdf library from tensorflow_decision_forests. Additionally, we used Pandas to represent and manipulate the dataset. The program reads in the .csv representation of the dataset provided on Kaggle which includes the <span class="code">lesion_id, image_id, dx, dx_type, age, sex, and localization</span>. The <span class="code">image_id</span> is the name of the corresponding image (which is provided in the dataset). <span class="code">Dx_type, age, sex, and localization</span> are all attributes along which splits occur in the random forest. <span class="code">Dx</span> is the label corresponding to the type of skin cancer present in the image. We use a 70/30 % train/validation split. Next, we convert the labels to integers. Finally, we train the model and check the accuracy and loss graphs.
+            <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Random Forest &nbsp;</span> We decided to also look into using a random forest approach to classify the different types of skin cancer. In order to do this, we utilized the <span class="code">tfdf</span> library from <span class="code">tensorflow_decision_forests</span> . Additionally, we used Pandas to represent and manipulate the dataset. The program reads in the .csv representation of the dataset provided on Kaggle which includes the <span class="code">lesion_id, image_id, dx, dx_type, age, sex, and localization</span>. The <span class="code">image_id</span> is the name of the corresponding image (which is provided in the dataset). <span class="code">Age, sex, and localization</span> are all attributes along which splits occur in the random forest. <span class="code">Dx</span> is the label corresponding to the type of skin cancer present in the image.  We first remove all other categories present in the dataset because we only want the relevant attributes and labels.  We then use a 70/30 % train/validation split. Next, we convert the labels to integers. Finally, we train the model and check the accuracy and loss graphs.  Fine-tuning hyperparameters is imperative to improve the accuracy of the model. Hyperparameters such as <span class="code">num_trees</span>, <span class="code">growing_strategy</span>, <span class="code">max_depth</span>, and more can be fine-tuned to increase the accuracy.  Additionally, using Gradient Boosting Decision Trees may add more reliability to the model.
             </p>           
         </div>
         <div class="sep-3rem"></div>
@@ -106,17 +106,14 @@
 
             <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Using State of the Art Models: &nbsp;</span> As mentioned earlier, we used VGG16 and extra dense/drop layers to make our final predictions. We also tested on ResNet-50 and MobileNet, but we ran into memory issues on the Colab GPUs when we tested HAM10000 on any of these networks. Even MobileNet, with only about 3M parameters, tended to exceed the memory during training due to the fact that we trained on 100000 images plus a generator.  We attempted to alleviate the memory load by using the <span class="code">del</span> capability from python, but by the time we got to the training step the memory pressure still caused our models to time out</p> 
             <p class="fs-5 lh-lg">In the future, if we have access to more reliable hardware that has considerably more memory, it's likely that we'd see high-accuracy results from these network architectures.  However, we were limited by time and resources and couldn't pursue this front much further</p>
-
-
-            <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Random Forest: &nbsp;</span> Below are the graphs that show the accuracy and loss of the random forest on the validation data. </p>
             
-                <img class="img-center" style="width: 100%;" src="images/rf_loss.png" />
-            
-            <p class="fs-5 lh-lg">The accuracy graph looks pretty good and reasonable as it increases with the number of trees and seems to reach a convergence with an accuracy of around 72%. Additionally, the loss graph looks reasonable as it decreases with the number of trees. However, there are definitely measures we can take to increase the accuracy of the random forest. Below shows the architecture of the first tree of our random forest at a maximum depth of 3.</p>
-            
-                <img class="img-center" style="width: 100%;" src="images/rf_tree_structure.png" />
-            
-            <p class="fs-5 lh-lg">One thing to notice is that the data is not splitting by the image_id. This is most likely because the actual image was not yet used in the dataset. The only real attributes that were utilized were dx_type, age, sex, and localization. We still need to gather the pixels of each image and utilize them in a meaningful way as attributes in the random forest model. This is one way we could achieve more accurate predictions.</p>
+            <p class="fs-5 lh-lg"><span class="secondary-header fs-4">Random Forest: &nbsp;</span>For the random forest model, the accuracy and loss of the model after tuning hyperparameters is shown below:
+            </p>
+            <img class="img-center" src="images/rf_loss_acc_updated.png" />
+            <p class="fs-5 lh-lg">The accuracy looks better than before as it’s getting to around 74.5% accuracy. Unfortunately, the model does not seem to ever do better than this. The specific model used was a Gradient Boosted Decision Tree model with 30 trees, using a “Best First Global” growing strategy, and a maximum depth of 3. These parameters yielded the best results. Below is a visualization of one of the trees in the model:</p>
+            <img class="img-center" src="images/rf_tree_structure_2.png" />
+            <p class="fs-5 lh-lg">One thing to note is that the actual image was not used as an attribute to split in the random forest. It is extremely difficult to quantify an image for splitting on a decision tree. One way it could have been done is that each pixel could be an attribute. This would not work in the long run because different images could be oriented differently with different lighting. Therefore, sticking with all the other attributes works best for a random forest model. However, this limits the accuracy as using the image in a model could provide more information and yield better results. This is why a model such as a Convolutional Neural Network has better accuracy.
+            </p>
         </div>
     </div>
   </body>
